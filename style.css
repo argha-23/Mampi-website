@@ -1,0 +1,209 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(circle at top, #3a123f, #120914 55%, #080509);
+    color: white;
+}
+
+#app {
+    min-height: 100vh;
+}
+
+/* Common Screen */
+
+.screen {
+    min-height: 100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.screen.active {
+    display: flex;
+}
+
+
+/* Welcome Screen */
+
+.welcome-card {
+    width: 100%;
+    max-width: 520px;
+    padding: 45px 30px;
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 25px;
+
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.small-text {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-bottom: 15px;
+}
+
+.welcome-card h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.intro-text {
+    font-size: 18px;
+    opacity: 0.85;
+    margin-bottom: 30px;
+}
+
+
+/* Start Button */
+
+#start-btn {
+    border: none;
+    padding: 14px 30px;
+
+    border-radius: 50px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    color: white;
+    background: linear-gradient(135deg, #ff4f91, #a83cff);
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+#start-btn:hover {
+    transform: scale(1.05);
+}
+
+
+/* Question Screen */
+
+.question-card {
+    width: 100%;
+    max-width: 650px;
+    padding: 35px;
+
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 25px;
+
+    backdrop-filter: blur(15px);
+}
+
+#progress {
+    display: block;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 214, 231, 0.7);
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+}
+
+#progress span {
+    color: #ffd6e7;
+    font-weight: 700;
+}
+
+#question-text {
+    font-size: 26px;
+    line-height: 1.6;
+}
+
+
+/* Answer Buttons */
+
+#answers {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.answer-btn {
+    width: 100%;
+    padding: 15px 18px;
+
+    border: 1px solid rgba(255, 180, 215, 0.25);
+    border-radius: 15px;
+
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff4fa;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.answer-btn:hover {
+    background: rgba(255, 105, 170, 0.15);
+    border-color: rgba(255, 180, 215, 0.55);
+    transform: translateY(-2px);
+}
+
+.answer-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+
+/* Final Screen */
+
+.final-card {
+    max-width: 600px;
+    text-align: center;
+    padding: 40px;
+}
+
+.final-card h1 {
+    font-size: 38px;
+    margin-bottom: 20px;
+}
+
+
+/* Mobile */
+@media (max-width: 600px) {
+    .welcome-card {
+        padding: 35px 22px;
+    }
+
+    .welcome-card h1 {
+        font-size: 34px;
+    }
+
+    .question-card {
+        padding: 25px 18px;
+    }
+
+    #question-text {
+    font-size: 26px;
+    line-height: 1.6;
+}
+    }
+
+    .answer-btn {
+        font-size: 15px;
+        padding: 14px 16px;
+    }
+
+    #answers p {
+        color: #ff9fc9;
+        font-size: 18px;
+        font-weight: 600;
+    }
+}
