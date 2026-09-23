@@ -10,23 +10,17 @@ app = FastAPI()
 # Uploads ফোল্ডার তৈরি
 os.makedirs("uploads", exist_ok=True)
 
-# Frontend ফোল্ডার থাকলে তবেই মাউন্ট করবে (যাতে ক্র্যাশ না করে)
-if os.path.exists("frontend"):
-    app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
-
-# ওয়েবসাইট ওপেন করার জন্য রুট
+# ওয়েবসাইট ওপেন করার জন্য রুট (সরাসরি index.html লোড করবে)
 @app.get("/")
 def read_root():
-    if os.path.exists("frontend/index.html"):
-        return FileResponse("frontend/index.html")
-    return {"message": "Server is running, but frontend folder was not found!"}
+    return FileResponse("index.html")
 
 # উত্তর ও ফটো সেভ করার API Endpoint
 @app.post("/api/submit")
 async def submit_answers(request: Request):
     data = await request.json()
     
-    # ১. সব টেক্সট উত্তর responses.json ফাইলে সেভ হবে
+    # ১. সব টেক্সট উত্তর responses.json ফাইলেক সেভ হবে
     with open("responses.json", "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
         
@@ -39,5 +33,5 @@ async def submit_answers(request: Request):
             file_path = f"uploads/question_{q_num}.png"
             with open(file_path, "wb") as f:
                 f.write(file_data)
-
-    return {"status": "success", "message": "All answers and photos saved successfully!"}
+                
+    return {"message": "Success"}
