@@ -1,56 +1,69 @@
-from fastapi import FastAPI, Request
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-import json
-import base64
 import os
+import json
+from flask import Flask, request, jsonify, send_from_directory
+from flask_cors import CORS
 
-app = FastAPI()
+app = Flask(__name__)
+CORS(app)
 
-# Uploads ফোল্ডার তৈরি
-os.makedirs("uploads", exist_ok=True)
+UPLOAD_FOLDER = 'uploads'
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
-# ওয়েবসাইট লোড করার রুট
-@app.get("/")
-def read_root():
-    return FileResponse("index.html")
+DATA_FILE = 'responses.json'
 
-# CSS ফাইল লোড করার জন্য
-@app.get("/style.css")
-def get_css():
-    return FileResponse("style.css")
+@app.route('/')
+def home():
+    return send_from_directory('.', 'index.html')
 
-# JS ফাইল লোড করার জন্য
-@app.get("/script.js")
-def get_js():
-    return FileResponse("script.js")
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory('.', path)
 
-# উত্তর ও ফটো সেভ করার API Endpoint
-@app.post("/api/submit")
-async def submit_answers(request: Request):
-    data = await request.json()
-    
-    # ১. সব টেক্সট উত্তর responses.json ফাইলে সেভ হবে
-    with open("responses.json", "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
+@app.route('/submit', methods=['POST'])
+def submit():
+    try:
+        data = request.form.to_dict()
+        file = request.files.get('photo')
         
-    # ২. সব ছবি uploads ফোল্ডারে ইমেজ ফাইল হিসেবে সেভ হবে
-    photos = data.get("photos", {})
-    for q_num, img_base64 in photos.items():
-        if img_base64.startswith("data:image"):
-            header, encoded = img_base64.split(",", 1)
-            file_data = base64.b64decode(encoded)
-            file_path = f"uploads/question_{q_num}.png"
-            with open(file_path, "wb") as f:
-                f.write(file_data)
-                
-    return {"message": "Success"}
-    @app.route('/view-secret-responses-2002', methods=['GET'])
+        photo_filename = None
+        if file:
+            photo_filename = file.filename
+            file.save(os.path.join(UPLOAD_FOLDER, photo_filename))
+        
+        entry = {
+            "responses": data,
+            "photo": photo_filename
+        }
+        
+        existing_data = []
+        if os.path.exists(DATA_FILE):
+            with open(DATA_FILE, 'r') as f:
+                try:
+                    existing_data = json.load(f)
+                except:
+                    existing_data = []
+        
+        existing_data.append(entry)
+        
+        with open(DATA_FILE, 'w') as f:
+            json.dump(existing_data, f, indent=4)
+            
+        return jsonify({"status": "success", "message": "Submitted successfully!"})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route('/view-secret-responses-2002', methods=['GET'])
 def view_responses():
     try:
-        with open('responses.json', 'r') as f:
-            data = json.load(f)
-        return jsonify(data)
+        if os.path.exists(DATA_FILE):
+            with open(DATA_FILE, 'r') as f:
+                data = json.load(f)
+            return jsonify(data)
+        else:
+            return jsonify({"message": "এখনো কোনো উত্তর জমা পড়েনি বা ফাইল তৈরি হয়নি।"})
     except Exception as e:
-        return jsonify({"message": "এখনো কোনো উত্তর জমা পড়েনি বা ফাইল তৈরি হয়নি।"})
-        
+        return jsonify({"error": str(e)})
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
