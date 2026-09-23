@@ -7,14 +7,19 @@ import os
 
 app = FastAPI()
 
-# Uploads এবং Frontend ফোল্ডার তৈরি ও সেটআপ
+# Uploads ফোল্ডার তৈরি
 os.makedirs("uploads", exist_ok=True)
-app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
+
+# Frontend ফোল্ডার থাকলে তবেই মাউন্ট করবে (যাতে ক্র্যাশ না করে)
+if os.path.exists("frontend"):
+    app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
 
 # ওয়েবসাইট ওপেন করার জন্য রুট
 @app.get("/")
 def read_root():
-    return FileResponse("frontend/index.html")
+    if os.path.exists("frontend/index.html"):
+        return FileResponse("frontend/index.html")
+    return {"message": "Server is running, but frontend folder was not found!"}
 
 # উত্তর ও ফটো সেভ করার API Endpoint
 @app.post("/api/submit")
