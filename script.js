@@ -420,8 +420,9 @@ function showQuestionScreen() {
     finalScreen.classList.remove("active");
 }
 
-/* FINAL SCREEN WITH SUBMIT BUTTON TO BACKEND */
+/* FINAL SCREEN */
 function showFinalScreen() {
+
     welcomeScreen.classList.remove("active");
     questionScreen.classList.remove("active");
     finalScreen.classList.add("active");
@@ -429,43 +430,60 @@ function showFinalScreen() {
     questionText.textContent = "";
     answersContainer.innerHTML = "";
 
-  function showFinalScreen() {
-    welcomeScreen.classList.remove("active");
-    questionScreen.classList.remove("active");
-    finalScreen.classList.add("active");
+    finalScreen.innerHTML = `
+        <div class="final-card">
 
-    questionText.textContent = "";
-    answersContainer.innerHTML = "";
-}
+            <h1>Thank You, Goru ❤️</h1>
 
-           
-    
+            <p>এতগুলো প্রশ্নের উত্তর দেওয়ার জন্য।</p>
 
-    document.getElementById("submit-all-btn").addEventListener("click", function () {
-        const submitBtn = document.getElementById("submit-all-btn");
-        const statusText = document.getElementById("submit-status");
-        
-        submitBtn.disabled = true;
-        statusText.textContent = "অপেক্ষা কর, সব উত্তর পাঠানো হচ্ছে… ⏳";
+            <p>
+                তুই যে উত্তরগুলো দিলি, আমি অবশ্যই সবগুলো পড়ব। ❤️
+            </p>
 
-        fetch("/api/submit", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(state)
-        })
-        .then(response => response.json())
-        .then(data => {
-            statusText.textContent = "সব উত্তর সাফল্যের সাথে জমা হয়ে গেছে! ❤️";
-            submitBtn.style.display = "none";
-            document.getElementById("final-notes").style.display = "block";
-        })
-        .catch(error => {
-            console.error("Submission Error:", error);
-            statusText.textContent = "পাঠাতে সমস্যা হয়েছে! নেটওয়ার্ক চেক করে আবার চেষ্টা কর।";
-            submitBtn.disabled = false;
-        });
+            <p>ভালো করে পড়াশোনা কর। 📚</p>
+
+            <p>নিজের জীবনটা নিজের মতো করে সাজা। 🌸</p>
+
+            <p>আর হ্যাঁ…</p>
+
+            <p>
+                <strong>নিজের যত্ন নিস, কচি। ❤️</strong>
+            </p>
+
+            <p>— Anirban 🤍</p>
+
+            <button
+                id="start-again-btn"
+                class="answer-btn"
+                style="margin-top:25px;"
+            >
+                Start Again ❤️
+            </button>
+
+        </div>
+    `;
+
+    const startAgainButton =
+        document.getElementById("start-again-btn");
+
+    startAgainButton.addEventListener("click", function () {
+
+        localStorage.removeItem(STORAGE_KEY);
+
+        state = {
+            currentStep: 0,
+            answers: {},
+            yearAnswer: "",
+            textAnswers: {},
+            photos: {},
+            q11BCount: 0,
+            poemReactionAnswer: "",
+            poemReactionText: ""
+        };
+
+        showQuestionScreen();
+        renderCurrentStep();
     });
 }
 
