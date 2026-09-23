@@ -9,12 +9,12 @@ app = FastAPI()
 
 # Uploads এবং Frontend ফোল্ডার তৈরি ও সেটআপ
 os.makedirs("uploads", exist_ok=True)
-app.mount("/frontend", StaticFiles(directory="../frontend"), name="frontend")
+app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
 
 # ওয়েবসাইট ওপেন করার জন্য রুট
 @app.get("/")
 def read_root():
-    return FileResponse("../frontend/index.html")
+    return FileResponse("frontend/index.html")
 
 # উত্তর ও ফটো সেভ করার API Endpoint
 @app.post("/api/submit")
