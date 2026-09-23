@@ -1,13 +1,42 @@
 /* =========================================================
    MAMPI SECRET WEBSITE
    MASTER SCRIPT (FINAL SUBMIT ENABLED VERSION)
-   ========================================================= */
+========================================================= */
+
+// Birthday Check Function (09/07/2002)
+function checkBirthday() {
+    const dobInput = document.getElementById("dob");
+    const errorMsg = document.getElementById("error-msg");
+    
+    if (!dobInput) return false;
+
+    const userDOB = dobInput.value; // YYYY-MM-DD
+    const correctDOB = "2002-07-09"; // 9th July 2002
+
+    if (userDOB === correctDOB) {
+        if (errorMsg) errorMsg.style.display = "none";
+        return true;
+    } else {
+        if (errorMsg) errorMsg.style.display = "block";
+        return false;
+    }
+}
 
 const welcomeScreen = document.getElementById("welcome-screen");
 const questionScreen = document.getElementById("question-screen");
 const finalScreen = document.getElementById("final-screen");
 
 const startButton = document.getElementById("start-btn");
+
+if (startButton) {
+    startButton.addEventListener("click", function(e) {
+        if (!checkBirthday()) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            return false;
+        }
+    }, true);
+}
 
 const questionNumber = document.getElementById("question-number");
 const questionText = document.getElementById("question-text");
