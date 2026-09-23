@@ -3,43 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Mampi ❤️</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
     <main id="app">
 
         <!-- Welcome Screen -->
         <section id="welcome-screen" class="screen active">
-
             <div class="welcome-card">
-
                 <p class="small-text">A little something for you...</p>
-
                 <h1>Hey Mampi ❤️</h1>
-
                 <p class="intro-text">
-                    Ready for something a little different? 👀
+                    Ready for something a little different? 🤫
                 </p>
 
-                <button id="start-btn">
-                    Let's Begin ❤️
-                </button>
+                <!-- Birthday Input Section -->
+                <div style="margin: 20px 0;">
+                    <label for="dob" style="display: block; margin-bottom: 8px; font-weight: bold;">Enter your Date of Birth to unlock:</label>
+                    <input type="date" id="dob" style="padding: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 16px;">
+                </div>
+                <p id="error-msg" style="color: red; display: none; margin-bottom: 15px;">ভুল তারিখ! সঠিক জন্ম তারিখ দিয়ে চেষ্টা করো। 😜</p>
 
+                <button id="start-btn">Let's Begin ❤️</button>
             </div>
-
         </section>
-
 
         <!-- Question Screen -->
         <section id="question-screen" class="screen">
-
             <div class="question-card">
-
                 <div id="progress">
                     Question <span id="question-number">1</span>
                 </div>
@@ -49,30 +42,27 @@
                 </h2>
 
                 <div id="answers"></div>
-
             </div>
-
         </section>
-
 
         <!-- Final Screen -->
         <section id="final-screen" class="screen">
-
             <div class="final-card">
-
                 <h1>Thank You, Goru ❤️</h1>
-
                 <p>
-                    এতগুলো প্রশ্নের উত্তর দেওয়ার জন্য।
+                    এতগুলো প্রশ্নের উত্তর দেওয়ার জন্য।<br><br>
+                    তুই যে উত্তরগুলো দিলি, আমি অবশ্যই সবগুলো পড়ব। ❤️<br>
+                    ভালো করে পড়াশোনা কর। 📚<br>
+                    নিজের জীবনটা নিজের মতো করে সাজা। 🌸<br><br>
+                    আর হ্যাঁ…<br>
+                    নিজের যত্ন নিস, কচি। ❤️<br><br>
+                    <strong>— Anirban 🤍</strong>
                 </p>
-
             </div>
-
         </section>
 
     </main>
 
     <script src="script.js"></script>
-
 </body>
 </html>
