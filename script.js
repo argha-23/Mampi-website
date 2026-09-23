@@ -429,23 +429,14 @@ function showFinalScreen() {
     questionText.textContent = "";
     answersContainer.innerHTML = "";
 
-  finalScreen.innerHTML = `
-    <div class="final-card">
-        <h1>Thank You, Goru ❤️</h1>
-        <p>এতগুলো প্রশ্নের উত্তর দেওয়ার জন্য।</p>
-        <p>তুই যে উত্তরগুলো দিলি, আমি অবশ্যই সবগুলো পড়ব। ❤️</p>
-        <p>ভালো করে পড়াশোনা কর। 📚</p>
-        <p>নিজের জীবনটা নিজের মতো করে সাজা। 🌸</p>
-        <p>আর হ্যাঁ…</p>
-        <p>নিজের যত্ন নিস, কচি। ❤️</p>
-        <p><strong>— Anirban 🤍</strong></p>
-        
-        <button id="submit-all-btn" class="answer-btn" style="margin-top:20px; background:#ff4081; color:#fff;">
-            Submit All Answers ❤️
-        </button>
-        <p id="submit-status" style="margin-top:10px; color:#ff9fc9;"></p>
-    </div>
-`;
+  function showFinalScreen() {
+    welcomeScreen.classList.remove("active");
+    questionScreen.classList.remove("active");
+    finalScreen.classList.add("active");
+
+    questionText.textContent = "";
+    answersContainer.innerHTML = "";
+}
 
            
     
