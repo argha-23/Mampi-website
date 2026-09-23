@@ -429,7 +429,7 @@ function showFinalScreen() {
     questionText.textContent = "";
     answersContainer.innerHTML = "";
 
-   finalScreen.innerHTML = `
+  finalScreen.innerHTML = `
     <div class="final-card">
         <h1>Thank You, Goru ❤️</h1>
         <p>এতগুলো প্রশ্নের উত্তর দেওয়ার জন্য।</p>
@@ -445,17 +445,9 @@ function showFinalScreen() {
         </button>
         <p id="submit-status" style="margin-top:10px; color:#ff9fc9;"></p>
     </div>
+`;
 
-            <p id="submit-status" style="margin-top:10px; color:#ff9fc9;"></p>
-
-            <div id="final-notes" style="display:none; margin-top:20px;">
-                <p>ভালো করে পড়াশোনা কর। 📚</p>
-                <p>নিজের জীবনটা নিজের মতো করে সাজা। 🌸</p>
-                <p>আর হ্যাঁ…</p>
-                <p><strong>নিজের যত্ন নিস, কচি। ❤️</strong></p>
-                <p>— Anirban 🤍</p>
-            </div>
-        </div>
+           
     
 
     document.getElementById("submit-all-btn").addEventListener("click", function () {
