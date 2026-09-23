@@ -10,17 +10,27 @@ app = FastAPI()
 # Uploads ফোল্ডার তৈরি
 os.makedirs("uploads", exist_ok=True)
 
-# ওয়েবসাইট ওপেন করার জন্য রুট (সরাসরি index.html লোড করবে)
+# ওয়েবসাইট লোড করার রুট
 @app.get("/")
 def read_root():
     return FileResponse("index.html")
+
+# CSS ফাইল লোড করার জন্য
+@app.get("/style.css")
+def get_css():
+    return FileResponse("style.css")
+
+# JS ফাইল লোড করার জন্য
+@app.get("/script.js")
+def get_js():
+    return FileResponse("script.js")
 
 # উত্তর ও ফটো সেভ করার API Endpoint
 @app.post("/api/submit")
 async def submit_answers(request: Request):
     data = await request.json()
     
-    # ১. সব টেক্সট উত্তর responses.json ফাইলেক সেভ হবে
+    # ১. সব টেক্সট উত্তর responses.json ফাইলে সেভ হবে
     with open("responses.json", "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
         
