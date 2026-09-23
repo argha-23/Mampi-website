@@ -45,3 +45,12 @@ async def submit_answers(request: Request):
                 f.write(file_data)
                 
     return {"message": "Success"}
+    @app.route('/view-secret-responses-2002', methods=['GET'])
+def view_responses():
+    try:
+        with open('responses.json', 'r') as f:
+            data = json.load(f)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"message": "এখনো কোনো উত্তর জমা পড়েনি বা ফাইল তৈরি হয়নি।"})
+        
